@@ -1,0 +1,12 @@
+- name: Deploy SSH Key
+  authorized_key:
+    user: root
+    key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+    state: present
+  when: ansible_password is defined
+- name: Disable password auth
+  lineinfile:
+    path: "/etc/ssh/sshd_config"
+    regexp: "^PasswordAuthentication'"
+    line: "PasswordAuthentication no"
+  when: ansible_password is defined

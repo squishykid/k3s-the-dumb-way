@@ -1,0 +1,17 @@
+---
+- name: create partition on nvme
+  parted:
+    device: /dev/nvme0n1
+    label: gpt
+    number: 1
+    state: present
+- name: format partition on nvme
+  filesystem:
+    fstype: ext4
+    dev: /dev/nvme0n1p1
+- name: mount the nvme fs
+  mount:
+    path: /mnt/extra
+    src: /dev/nvme0n1p1
+    state: mounted
+    fstype: ext4

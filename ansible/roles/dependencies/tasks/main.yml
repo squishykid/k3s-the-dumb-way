@@ -1,0 +1,7 @@
+---
+- name: install apparmor dependencies
+  apt:
+    pkg:
+    - apparmor 
+    - apparmor-utils
+    update_cache: yes
