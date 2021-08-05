@@ -1,0 +1,9 @@
+---
+
+- hosts: k3s_cluster
+  gather_facts: yes
+  tasks:
+  - name: update
+    apt:
+      update_cache: yes
+      upgrade: yes

@@ -17,8 +17,6 @@
         - servicelb
       data-dir: /mnt/extra/k3s
       default-local-storage-path: /mnt/extra/k3s/local-storage
-    k3s_server_manifests_templates:
-      - "templates/00-ns-monitoring.yml"
   pre_tasks:
     - name: Set each node to be a control node
       ansible.builtin.set_fact:
