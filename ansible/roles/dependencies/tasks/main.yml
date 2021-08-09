@@ -4,4 +4,5 @@
     pkg:
     - apparmor 
     - apparmor-utils
+    - open-iscsi
     update_cache: yes
