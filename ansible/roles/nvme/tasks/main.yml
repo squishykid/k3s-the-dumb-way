@@ -15,3 +15,7 @@
     src: /dev/nvme0n1p1
     state: mounted
     fstype: ext4
+- name: Create directory for longhorn
+  file:
+    path: /mnt/extra/longhorn
+    state: directory
