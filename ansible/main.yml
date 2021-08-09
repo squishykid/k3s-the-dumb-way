@@ -15,6 +15,7 @@
       disable:
         - traefik
         - servicelb
+        - local-storage
       data-dir: /mnt/extra/k3s
       default-local-storage-path: /mnt/extra/k3s/local-storage
   pre_tasks:
