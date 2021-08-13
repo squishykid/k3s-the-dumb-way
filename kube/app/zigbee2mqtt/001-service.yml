@@ -1,0 +1,62 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zigbee2mqtt-default-setting
+  namespace: zigbee2mqtt-app
+data:
+  configuration.yaml: |-
+    homeassistant: true
+    permit_join: false
+    mqtt:
+      base_topic: zigbee2mqtt
+      server: 'mqtt://somehost'
+    serial:
+      port: /dev/ttyUSB0
+    advanced:
+      pan_id: 0xcaf3
+    devices: devices.yaml
+    groups: groups.yaml
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zigbee2mqtt
+  namespace: zigbee2mqtt-app
+  labels:
+    app: zigbee2mqtt
+spec:
+  serviceName: "nginx"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zigbee2mqtt
+  template:
+    metadata:
+      labels:
+        app: zigbee2mqtt
+    spec:
+      containers:
+      - name: zigbee2mqtt
+        image: koenkk/zigbee2mqtt:1.21.0
+        resources:
+          limits:
+            squat.ai/serial: 1
+        volumeMounts:
+          - mountPath: /app/data
+            name: data
+          - mountPath: /app/configuration.yaml
+            name: zigbee2mqtt-default-setting
+            subPath: configuration.yaml
+      volumes:
+        - name: zigbee2mqtt-default-setting
+          configMap:
+            name: zigbee2mqtt-default-setting
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
