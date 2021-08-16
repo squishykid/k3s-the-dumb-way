@@ -10,7 +10,7 @@ data:
     permit_join: false
     mqtt:
       base_topic: zigbee2mqtt
-      server: 'mqtt://somehost'
+      server: 'mqtt://mosquitto.mosquitto-app.svc.cluster.local'
     serial:
       port: /dev/ttyUSB0
     advanced:
@@ -26,7 +26,7 @@ metadata:
   labels:
     app: zigbee2mqtt
 spec:
-  serviceName: "nginx"
+  serviceName: zigbee2mqtt
   replicas: 1
   selector:
     matchLabels:
@@ -45,7 +45,7 @@ spec:
         volumeMounts:
           - mountPath: /app/data
             name: data
-          - mountPath: /app/configuration.yaml
+          - mountPath: /app/data/configuration.yaml
             name: zigbee2mqtt-default-setting
             subPath: configuration.yaml
       volumes:
