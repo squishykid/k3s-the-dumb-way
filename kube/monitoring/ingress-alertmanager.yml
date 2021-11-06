@@ -15,7 +15,7 @@ spec:
         path: /
         backend:
           service:
-            name: alertmanager
+            name: alertmanager-main
             port:
               name: web
   tls:

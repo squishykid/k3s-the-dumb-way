@@ -21,4 +21,4 @@ spec:
   tls:
   - hosts:
     - prometheus.dev.d00t.me
-    secretName: grafana-cert-prod
+    secretName: prometheus-cert-prod

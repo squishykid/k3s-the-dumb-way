@@ -257,6 +257,25 @@ spec:
     app.kubernetes.io/instance: ingress-nginx
     app.kubernetes.io/component: controller
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx-controller-prometheus
+  namespace: ingress-nginx
+  labels:
+    app: ingress-nginx-controller-prometheus
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: ingress-nginx
+    app.kubernetes.io/component: controller
+  ports:
+  - name: prometheus
+    port: 10254
+    protocol: TCP
+    targetPort: prometheus
+---
 # Source: ingress-nginx/templates/controller-service.yaml
 apiVersion: v1
 kind: Service
@@ -388,6 +407,9 @@ spec:
               protocol: TCP
             - name: webhook
               containerPort: 8443
+              protocol: TCP
+            - name: prometheus
+              containerPort: 10254
               protocol: TCP
           volumeMounts:
             - name: webhook-cert
