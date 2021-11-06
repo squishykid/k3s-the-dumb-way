@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  name: alertmanager
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: alertmanager.dev.d00t.me
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: alertmanager
+            port:
+              name: web
+  tls:
+  - hosts:
+    - alertmanager.dev.d00t.me
+    secretName: alertmanager-cert-prod
