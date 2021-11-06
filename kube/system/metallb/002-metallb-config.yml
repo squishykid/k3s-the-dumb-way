@@ -9,7 +9,7 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - 192.168.1.246-192.168.1.250
+      - 192.168.1.247-192.168.1.250
     - name: forwarded
       protocol: layer2
       addresses:
