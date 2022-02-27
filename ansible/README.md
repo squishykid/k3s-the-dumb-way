@@ -1,3 +1,17 @@
+Getting set up
+
+Create virtual environment
+`python3 -m venv .venv`
+
+Go into virtual env
+` . .venv/bin/activate`
+
+Install python requirements
+`pip install -m requirements.txt`
+
+Install Ansible Requirements
+`ansible-galaxy install -r requirements.yml`
+
 Preparation:
 
 1. flash armbian to eMMC modules
